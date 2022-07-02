@@ -1,0 +1,40 @@
+---
+- name: Downloading httpd
+  hosts: all
+  become: true
+
+  tasks: 
+  - name: Installing httpd
+    yum:
+     name: httpd
+     state: installed
+    when: ansible_distribution == "Amazon"
+
+  - name: Starting httpd
+    service:
+     name: httpd
+     state: started
+    when: ansible_distribution == "Amazon"
+
+  - name: Enabling httpd
+    service:
+      name: httpd
+      enabled: true    
+    when: ansible_distribution == "Amazon"
+
+  - name: Installing httpd on ubuntu
+    apt:
+     name: apache2
+     state: present
+    when: ansible_distribution == "Ubuntu"   
+
+  - name: Starting apache2
+    apt:
+      name: apache2
+      state: present
+    when: ansible_distribution == "Ubuntu"    
+
+         
+
+        
+...       
