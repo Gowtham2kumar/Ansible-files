@@ -1,0 +1,22 @@
+---
+- name: Changing the port for httpd
+  hosts: web
+  become: true
+  vars:
+   http_port: 9090  
+
+  tasks: 
+  - name: changing the port httpd
+    template:
+     src: /home/ec2-user/httpd.j2
+     dest: /etc/httpd/conf/httpd.conf
+    when: ansible_distribution == "Amazon"    
+
+  - name: Restarting the httpd
+    service: 
+      name: httpd
+      state: restarted    
+
+      
+
+...       

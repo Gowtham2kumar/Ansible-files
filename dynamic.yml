@@ -1,0 +1,26 @@
+---
+- name: orking with template concept
+  hosts: web
+  become: true
+
+  tasks: 
+  - name: Working with template
+    copy:
+     src: static.html
+     dest: /var/www/html/static.html
+    when: ansible_distribution == "Amazon"    
+
+  - name: changing the port httpd
+    template:
+     src: static.j2
+     dest: /var/www/html/dynamic.html
+    when: ansible_distribution == "Amazon"
+
+  - name: Restarting the httpd
+    service: 
+      name: httpd
+      state: restarted    
+
+      
+
+...       
