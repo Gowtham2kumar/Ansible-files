@@ -1,0 +1,19 @@
+---
+- name: Downloading git
+  hosts: all
+  become: true
+
+  tasks: 
+  - name: Installing git
+    yum:
+     name: git
+     state: installed
+
+  
+  - name: Cloning the repo
+    git:
+     repo: https://github.com/ravi2krishna/ecomm.git
+     dest: /var/www/html
+     clone: yes   
+         
+...       

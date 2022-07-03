@@ -1,0 +1,20 @@
+---
+- name: Changing the port for httpd
+  hosts: web
+  become: true
+
+  tasks: 
+  - name: changing the port httpd
+    copy:
+     src: /home/ec2-user/httpd.conf
+     dest: /etc/httpd/conf/httpd.conf
+    when: ansible_distribution == "Amazon"    
+
+  - name: Restarting the httpd
+    service: 
+      name: httpd
+      state: restarted    
+
+      
+
+...       
